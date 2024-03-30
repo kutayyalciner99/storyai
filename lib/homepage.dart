@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:storyai/components/image_display.dart';
 import 'package:storyai/components/submit_display.dart';
-import 'package:storyai/service/api.dart';
-import 'package:openai_dalle_wrapper/openai_dalle_wrapper.dart';
+import 'package:storyai/services/api.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -12,8 +11,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final api = Api();
-
   String? imageUrl;
   bool isFetching = false;
   String? fetchError;
@@ -55,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
       isFetching = true;
     });
     try {
-      final result = await api.fetchDalleImageUrl(prompt);
+      final result = await Api().fetchDalleImageUrl(prompt);
       setState(() => imageUrl = result);
     } catch (e) {
       setState(() => fetchError = e.toString());
